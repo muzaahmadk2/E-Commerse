@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <>
       <Card className="mt-1" >
-        <Card.Body style={{backgroundColor:'darkgray',color:'white'}}>
+        <Card.Body style={{backgroundColor:'darkgray',color:'white',display: 'flex',justifyContent: 'center'}}>
           <h1 className="display-2" style={{fontFamily:'initial'}}>The Generics</h1>
         </Card.Body>
       </Card>

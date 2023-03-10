@@ -1,12 +1,23 @@
-import {Container,Card} from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Container, Card, Col } from "react-bootstrap";
 
-const Items = props => {
-    return <card>
-        <Card.img variant="top" src={props.img} />
-        <Card.body>
-            {props.price}
-            <Button variant="primary" >Add</Button>
-        </Card.body>
-    </card>
+const Items = (props) => {
+  return (
+    <Col>
+      <Container style={{width:'350px',height:'auto'}}>
+        <h4 className="mt-3 mb-3">{props.title}</h4>
+        <Card
+          className="img-fluid card h-100 shadow"
+          style={{ maxWidth: "300px", height: "50px" }}
+        >
+          <Card.Img variant="top" src={props.img}></Card.Img>
+        </Card>
+        <span className="fw-bolder " >${props.price}</span>
+        <Button variant="primary" style={{marginLeft:'100px',marginTop:'10px'}}>
+          Add To Cart
+        </Button>
+      </Container>
+    </Col>
+  );
 };
 export default Items;

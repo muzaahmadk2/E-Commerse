@@ -1,32 +1,30 @@
-import { Navbar, Nav, Container,Button } from "react-bootstrap";
+
+import { useState } from "react";
 import "./App.css";
+import Cart from "./Components/Cart/Cart";
 import Header from "./Components/Header";
+import ListItem from "./Components/ListItem";
+import NavBar from "./Components/NavBar";
+import CartProvider from "./Components/Store/CartProvider";
 
 function App() {
+  const [showCart, setShowCart] = useState(false);
+
+  const showCartHandler = () => {
+    setShowCart(true);
+  }
+  const hideCartHandler = () =>{
+    setShowCart(false);
+  }
+
   return (
-    <div className="App">
-      <Navbar bg="dark" expand="sm" variant="dark">
-        <Container>
-          <Nav className="justify-content-center" activeKey="/home">
-            <Nav.Item>
-              <Nav.Link href="/home">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="Store">Store</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="about">About</Nav.Link>
-            </Nav.Item>
-          </Nav>
-          <Nav className="justify-content-end">
-            <Nav.Item>
-              <Button variant="primary">Cart</Button>
-            </Nav.Item>
-          </Nav>
-        </Container>
-      </Navbar>
-      <Header />
-    </div>
+    <CartProvider>
+      <NavBar  onShowCart={showCartHandler}/>
+      {showCart && <Cart onClose={hideCartHandler} />}
+      <Header/>
+      <ListItem />
+  
+    </CartProvider>
   );
 }
 
