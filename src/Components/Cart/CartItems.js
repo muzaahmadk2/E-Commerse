@@ -1,47 +1,26 @@
 import { Button } from "react-bootstrap";
-
-const cartElements = [
-  {
-    
-    title: "Colors",
-
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-
-    quantity: 2,
-  },
-
-  {
-    title: "Black and white Colors",
-
-    price: 50,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-
-    quantity: 3,
-  },
-
-  {
-    title: "Yellow and Black Colors",
-
-    price: 70,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-
-    quantity: 1,
-  },
-];
+import { useContext, useState } from "react";
+import CartContext from "../Store/Cart-Context";
 
 const CartItems = (props) => {
+  const crtCtx = useContext(CartContext);
+  const cartItems = crtCtx.items;
+  const [data, setData] = useState(cartItems);
+
+  const valueChangeHandler = (event, index) => {
+    const updatedItems = [...data];
+    updatedItems[index].quantity = +event.target.value;
+    setData(updatedItems);
+  };
+
   return (
     <>
-      {cartElements.map((ele, index) => (
-        <tr>
+      {cartItems.map((ele, index) => (
+        <tr key={index} style={{ verticalAlign: "middle" }}>
           <th>
             <div>
               <img
-                src={ele.imageUrl}
+                src={ele.img}
                 alt={ele.title}
                 style={{ width: "70px", height: "70px", marginRight: "10px" }}
               />
@@ -56,8 +35,9 @@ const CartItems = (props) => {
           <th>
             <div>
               <input
-                type={"number"}
+                type={"text"}
                 value={ele.quantity}
+                onChange={(event) => valueChangeHandler(event, index)}
                 style={{ width: "30px", height: "30px" }}
               />
               <Button onClick={props.onClose} variant="danger" className="m-2">
