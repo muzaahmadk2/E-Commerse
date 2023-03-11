@@ -9,7 +9,9 @@ const Cart = (props) => {
 
   return (
     // <Modal onClose={props.onClose} style={{float: 'right'}}>
-    <Card style={{ width: "auto", float: "right" }}>
+    <Card
+      style={{ width: "auto", right: "0", position: "absolute", top: "10%",zIndex:'1' }}
+    >
       <div className="text-end m-2">
         <CloseButton onClick={props.onClose} />
       </div>
@@ -27,14 +29,16 @@ const Cart = (props) => {
             <CartItems />
           </tbody>
         </Table>
-        <div style={{textAlign:'right'}}>
-            <h3 style={{ display: "inline-block" }}>Total</h3>
-            <span style={{ display: "inline-block", marginLeft: "10px" }}>
-              ${crtCtx.totalAmount}
-            </span>
+        <div style={{ textAlign: "right" }}>
+          <h3 style={{ display: "inline-block" }}>Total</h3>
+          <span style={{ display: "inline-block", marginLeft: "10px" }}>
+            ${crtCtx.totalAmount}
+          </span>
         </div>
-        <div style={{textAlign:'center'}}>
-            <Button variant="primary" className="mt-3">Purchase</Button>
+        <div style={{ textAlign: "center" }}>
+          <Button variant="primary" className="mt-3">
+            Purchase
+          </Button>
         </div>
       </Card.Body>
     </Card>

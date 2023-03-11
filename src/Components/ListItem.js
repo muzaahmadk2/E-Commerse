@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button,Card } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Items from "./Items";
 const productsArr = [
   {
@@ -34,16 +34,30 @@ const productsArr = [
   },
 ];
 
-const listItems = productsArr.map((item,index) => (
-  <Items img={item.imageUrl} price={item.price} title={item.title} key={index} id={item.title}/>
+const listItems = productsArr.map((item, index) => (
+  <Items
+    img={item.imageUrl}
+    price={item.price}
+    title={item.title}
+    key={index}
+    id={item.title}
+  />
 ));
 const ListItem = () => {
   return (
-    <Container className="mt-3 py-4" style={{overflow:'visible',width:'60%'}}>
-        <h3 className="mb-5" style={{textAlign:"center" ,fontFamily:"initial"}} >MUSIC</h3>
-    <Row md={2} className="g-4" style={{justifyContent: 'center'}}>
-      {listItems}
-    </Row>
+    <Container
+      className="mt-3 py-4"
+      style={{ overflow: "visible", maxWidth: "900px" }}
+    >
+      <h3
+        className="mb-5"
+        style={{ textAlign: "center", fontFamily: "initial" }}
+      >
+        MUSIC
+      </h3>
+      <Row md={2} className="g-4" style={{ justifyContent: "center" }}>
+        {listItems}
+      </Row>
     </Container>
   );
 };

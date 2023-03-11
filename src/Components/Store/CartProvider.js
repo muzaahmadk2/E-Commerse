@@ -15,8 +15,7 @@ const CartProvider = (props) => {
     if (existingCartItem) {
       cartItems[existingCartItemIndex].quantity += 1;
       setCartItems(cartItems);
-    } 
-    else {
+    } else {
       setCartItems([...cartItems, item]);
     }
   };

@@ -4,16 +4,16 @@ import { Container, Card, Col } from "react-bootstrap";
 import CartContext from "./Store/Cart-Context";
 
 const Items = (props) => {
-const crtCtx = useContext(CartContext);
+  const crtCtx = useContext(CartContext);
 
-const addToCartHandler = (event) => {
+  const addToCartHandler = (event) => {
     event.preventDefault();
-    crtCtx.addItem({...props, quantity:1});
-}
+    crtCtx.addItem({ ...props, quantity: 1 });
+  };
 
   return (
     <Col>
-      <Container style={{width:'350px',height:'auto'}}>
+      <Container style={{ width: "350px", height: "auto" }}>
         <h4 className="mt-3 mb-3">{props.title}</h4>
         <Card
           className="img-fluid card h-100 shadow"
@@ -21,8 +21,12 @@ const addToCartHandler = (event) => {
         >
           <Card.Img variant="top" src={props.img}></Card.Img>
         </Card>
-        <span className="fw-bolder " >${props.price}</span>
-        <Button variant="primary" style={{marginLeft:'100px',marginTop:'10px'}} onClick={addToCartHandler}>
+        <span className="fw-bolder ">${props.price}</span>
+        <Button
+          variant="primary"
+          style={{ marginLeft: "100px", marginTop: "10px" }}
+          onClick={addToCartHandler}
+        >
           Add To Cart
         </Button>
       </Container>

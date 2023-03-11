@@ -1,36 +1,47 @@
 import { useContext } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Badge } from "react-bootstrap";
+import { Link,BrowserRouter,Routes,Route } from "react-router-dom";
+import Header from "./Layout/Header";
+import ListItem from "./ListItem";
+import About from "./Pages/About";
+import Home from "./Pages/Home";
 import CartContext from "./Store/Cart-Context";
 
 const NavBar = (props) => {
   const crtCtx = useContext(CartContext);
   const noOfItems = crtCtx.items.length;
   return (
-    <Navbar bg="dark" variant="dark" style={{ justifyContent: "center" }}>
-      <Container>
+    <BrowserRouter>
+    <Navbar bg="dark" expand="sm" fixed="top" variant="dark">
+      <Container className="justify-content-end">
         <Nav>
-          <Nav.Item>
-            <Nav.Link href="/home">Home</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="Store">Store</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="about">About</Nav.Link>
-          </Nav.Item>
+          <Nav.Link as={Link} to="/home">HOME</Nav.Link>
+          <Nav.Link as={Link} to="/">STORE</Nav.Link>
+          <Nav.Link as={Link} to="/about">ABOUT</Nav.Link>
         </Nav>
-        <Nav className="justify-content-end">
+        </Container>
+        <Container>
+        <Navbar.Collapse className="justify-content-end">
           <Nav.Item>
-            <Button variant="primary" onClick={props.onShowCart}>
+            <Button variant="outline-info" onClick={props.onShowCart}>
               Cart
-            </Button>{" "}
-            <span style={{ color: "#007bff", fontSize: "20px" }}>
+            </Button>
+            <Badge style={{color:'#2196F3', fontSize: "20px" }} bg="dark">
               {noOfItems}
-            </span>
+            </Badge>
           </Nav.Item>
-        </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Header />
+
+    <Routes>
+      <Route path="/about" element={ <About/> }/>
+      <Route path="/home" element={ <Home/> }/>
+      <Route path="/" element={ <ListItem/> }/>
+    </Routes>
+    
+    </BrowserRouter>
   );
 };
 export default NavBar;
