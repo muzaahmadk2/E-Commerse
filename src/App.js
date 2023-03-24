@@ -32,13 +32,27 @@ function App() {
   const hideCartHandler = () => {
     setShowCart(false);
   };
+  async function contactHandler(details) {
+    const response = await fetch(
+      "https://reacr-http-82765-default-rtdb.firebaseio.com/ContactUs.json",
+      {
+        method: "POST",
+        body: JSON.stringify(details),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  };
 
   return (
     <CartProvider>
       {/* <RouterProvider router={router} /> */}
       {showCart && <Cart onClose={hideCartHandler} />}
-      <NavBar onShowCart={showCartHandler} />
-      
+      <NavBar onShowCart={showCartHandler} onContact={contactHandler} />
+
       {/* <ListItem /> */}
       <Footer />
     </CartProvider>
