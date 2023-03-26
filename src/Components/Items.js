@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { Container, Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import CartContext from "./Store/Cart-Context";
 
 const Items = (props) => {
@@ -19,7 +20,7 @@ const Items = (props) => {
           className="img-fluid card h-100 shadow"
           style={{ maxWidth: "300px", height: "50px" }}
         >
-          <Card.Img variant="top" src={props.img}></Card.Img>
+          <Link to={`/store/${props.id}`} ><Card.Img variant="top" src={props.img}></Card.Img></Link>
         </Card>
         <span className="fw-bolder ">${props.price}</span>
         <Button

@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { Navbar, Nav, Container, Button, Badge } from "react-bootstrap";
-import { Link, BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
+import { Link, BrowserRouter, Route, NavLink,Redirect, Switch } from "react-router-dom";
 import Header from "./Layout/Header";
 import ListItem from "./ListItem";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
+import ProductDetails from "./Pages/ProductDetails";
 import Contact from "./Pages/Contact";
 import CartContext from "./Store/Cart-Context";
 
@@ -29,7 +30,7 @@ const NavBar = (props) => {
             <Nav.Link as={Link} to="/home">
               HOME
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/store">
               STORE
             </Nav.Link>
             <Nav.Link as={Link} to="/about">
@@ -55,12 +56,14 @@ const NavBar = (props) => {
       </Navbar>
       <Header isActive={isHeaderActive} />
 
-      <Routes>
-        <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home toggleHeader={toggleHeader} />} />
-        <Route path="/" element={<ListItem />} />
-        <Route path="/contact" element={<Contact onContact={contactHandler} />} />
-      </Routes>
+      <Switch>
+        <Route path="/about" > <About /> </Route>
+        <Route path="/home"><Home toggleHeader={toggleHeader} /></Route>
+        <Route path="/store" exact><ListItem /></Route>
+        <Route path="/" exact><Redirect to="/store" /></Route>
+        <Route path="/contact"><Contact onContact={contactHandler} /></Route>
+        <Route path="/store/:id"><ProductDetails /></Route>
+      </Switch>
     </BrowserRouter>
   );
 };
