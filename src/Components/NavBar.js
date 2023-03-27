@@ -8,6 +8,7 @@ import Home from "./Pages/Home";
 import ProductDetails from "./Pages/ProductDetails";
 import Contact from "./Pages/Contact";
 import CartContext from "./Store/Cart-Context";
+import AuthPage from "./Pages/AuthPage";
 
 const NavBar = (props) => {
   const [isHeaderActive, setIsHeaderActive] = useState(false);
@@ -39,6 +40,7 @@ const NavBar = (props) => {
             <Nav.Link as={Link} to="/contact">
               CONTACT US
             </Nav.Link>
+            <Nav.Link as={Link} to="/login" >LOGIN</Nav.Link>
           </Nav>
         </Container>
         <Container>
@@ -63,6 +65,7 @@ const NavBar = (props) => {
         <Route path="/" exact><Redirect to="/store" /></Route>
         <Route path="/contact"><Contact onContact={contactHandler} /></Route>
         <Route path="/store/:id"><ProductDetails /></Route>
+        <Route path="/login" ><AuthPage /></Route>
       </Switch>
     </BrowserRouter>
   );
