@@ -9,10 +9,12 @@ import ProductDetails from "./Pages/ProductDetails";
 import Contact from "./Pages/Contact";
 import CartContext from "./Store/Cart-Context";
 import AuthPage from "./Pages/AuthPage";
+import AuthContext from "./Store/Auth-Context";
 
 const NavBar = (props) => {
   const [isHeaderActive, setIsHeaderActive] = useState(false);
   const crtCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const noOfItems = crtCtx.items.length;
 
   const toggleHeader = (sta) => {
@@ -22,11 +24,17 @@ const NavBar = (props) => {
   const contactHandler = (details) => {
     props.onContact(details)
   }
+  const logoutHandler = () =>{
+    // event.preventDefault();
+    authCtx.logout();
+  }
+
+  const isLoggedIn = authCtx.isLoggedIn;
 
   return (
     <BrowserRouter>
       <Navbar bg="dark" expand="sm" fixed="top" variant="dark">
-        <Container className="justify-content-center">
+        {isLoggedIn && (<Container className="justify-content-center">
           <Nav>
             <Nav.Link as={Link} to="/home">
               HOME
@@ -40,10 +48,10 @@ const NavBar = (props) => {
             <Nav.Link as={Link} to="/contact">
               CONTACT US
             </Nav.Link>
-            <Nav.Link as={Link} to="/login" >LOGIN</Nav.Link>
+            <Button onClick={logoutHandler} variant="primary">LOGOUT</Button>
           </Nav>
-        </Container>
-        <Container>
+        </Container>)}
+        {isLoggedIn && (<Container>
           <Navbar.Collapse className="justify-content-end">
             <Nav.Item>
               <Button variant="outline-info" onClick={props.onShowCart}>
@@ -54,7 +62,8 @@ const NavBar = (props) => {
               </Badge>
             </Nav.Item>
           </Navbar.Collapse>
-        </Container>
+        </Container>)}
+        {!isLoggedIn && <Container><Nav><Nav.Link as={Link} to="/login" >LOGIN</Nav.Link></Nav></Container>}
       </Navbar>
       <Header isActive={isHeaderActive} />
 

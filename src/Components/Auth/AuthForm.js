@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-
+import { useState, useRef, useContext } from "react";
+import AuthContext from "../Store/Auth-Context";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
@@ -7,6 +7,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -18,34 +19,44 @@ const AuthForm = () => {
     const enteredEmail = emailRef.current.value;
     const enteredPass = passwordRef.current.value;
 
+    let url;
     if (isLogin) {
-
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDMG43QSxW48QNJrzMr1okxUA2IcXqU04w";
     } else {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDMG43QSxW48QNJrzMr1okxUA2IcXqU04w",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPass,
-            returnSecureToken: true,
-          }),
-          header: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDMG43QSxW48QNJrzMr1okxUA2IcXqU04w";
+    }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPass,
+        returnSecureToken: true,
+      }),
+      header: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
         setIsLoading(false);
         if (res.ok) {
-          /////.......
+          return res.json();
         } else {
           return res.json().then((data) => {
             let errorMessage = data.error.message;
-            alert(errorMessage);
+            throw new Error(errorMessage);
           });
         }
+      })
+      .then((data) => {
+        authCtx.login(data.idToken);
+        emailRef.current.value = '';
+        passwordRef.current.value= '';
+      })
+      .catch((err) => {
+        alert(err.message);
       });
-    }
   };
 
   return (
