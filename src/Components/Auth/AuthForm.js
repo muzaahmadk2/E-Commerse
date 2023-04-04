@@ -55,7 +55,7 @@ const AuthForm = () => {
         authCtx.login(data.idToken);
         emailRef.current.value = '';
         passwordRef.current.value= '';
-        history.replace('/');
+        history.replace('/store');
       })
       .catch((err) => {
         alert(err.message);

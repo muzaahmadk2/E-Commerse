@@ -93,30 +93,39 @@ const NavBar = (props) => {
       <Header isActive={isHeaderActive} />
 
       <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/home">
-          <Home toggleHeader={toggleHeader} />
-        </Route>
-        <Route path="/store" exact>
-          <ListItem />
-        </Route>
+        {isLoggedIn && (
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/home">
+              <Home toggleHeader={toggleHeader} />
+            </Route>
+            <Route path="/" exact>
+              <Redirect to="/store" />
+            </Route>
+            <Route path="/store" exact>
+              <ListItem />
+            </Route>
+            <Route path="/contact">
+              <Contact onContact={contactHandler} />
+            </Route>
+            <Route path="/store/:id">
+              <ProductDetails />
+            </Route>
+            <Route path="/profile">
+              <ProfilePage />
+            </Route>
+          </Switch>
+        )}
+        {!isLoggedIn && (
+          <Route path="/login">
+            <AuthPage />
+          </Route>
+        )}
         <Route path="/" exact>
-          <Redirect to="/store" />
-        </Route>
-        <Route path="/contact">
-          <Contact onContact={contactHandler} />
-        </Route>
-        <Route path="/store/:id">
-          <ProductDetails />
-        </Route>
-        <Route path="/login">
-          <AuthPage />
-        </Route>
-        <Route path="/profile">
-          <ProfilePage />
-        </Route>
+              {!isLoggedIn && <Redirect to="/login" />}
+            </Route>
       </Switch>
     </BrowserRouter>
   );
