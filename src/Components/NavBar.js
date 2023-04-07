@@ -83,6 +83,9 @@ const NavBar = (props) => {
         {!isLoggedIn && (
           <Container>
             <Nav>
+              <Nav.Link as={Link} to="/about">
+                ABOUT
+              </Nav.Link>
               <Nav.Link as={Link} to="/login">
                 LOGIN
               </Nav.Link>
@@ -95,11 +98,11 @@ const NavBar = (props) => {
       <Switch>
         {isLoggedIn && (
           <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
             <Route path="/home">
               <Home toggleHeader={toggleHeader} />
+            </Route>
+            <Route path="/about">
+              <About />
             </Route>
             <Route path="/" exact>
               <Redirect to="/store" />
@@ -119,13 +122,18 @@ const NavBar = (props) => {
           </Switch>
         )}
         {!isLoggedIn && (
-          <Route path="/login">
-            <AuthPage />
-          </Route>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/login">
+              <AuthPage />
+            </Route>
+          </Switch>
         )}
         <Route path="/" exact>
-              {!isLoggedIn && <Redirect to="/login" />}
-            </Route>
+          {!isLoggedIn && <Redirect to="/about" />}
+        </Route>
       </Switch>
     </BrowserRouter>
   );

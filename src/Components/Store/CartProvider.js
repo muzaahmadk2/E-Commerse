@@ -20,7 +20,20 @@ const CartProvider = (props) => {
     }
   };
 
-  const removeItemFromCartHandler = () => {};
+  const removeItemFromCartHandler = (item) => {
+    const existingCartItemIndex = cartItems.findIndex(
+      (itm) => itm.id === item.id
+    );
+    const existingCartItem = cartItems[existingCartItemIndex];
+    setTotalAmount(totalAmount - existingCartItem.price);
+    if (existingCartItem && item.quantity === 1) {
+      setCartItems(cartItems.filter(itm => itm.id !== item.id));
+    } else{
+      cartItems[existingCartItemIndex].quantity -= 1;
+      setCartItems(cartItems);
+      
+    }
+  };
 
   const cartContext = {
     items: cartItems,

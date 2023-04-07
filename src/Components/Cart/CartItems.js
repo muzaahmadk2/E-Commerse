@@ -12,6 +12,10 @@ const CartItems = (props) => {
     updatedItems[index].quantity = +event.target.value;
     setData(updatedItems);
   };
+  const removeCartItemHandler = (event,index) => {
+    event.preventDefault();
+    crtCtx.removeItem(cartItems[index]);
+  }
 
   return (
     <>
@@ -40,7 +44,7 @@ const CartItems = (props) => {
                 onChange={(event) => valueChangeHandler(event, index)}
                 style={{ width: "30px", height: "30px" }}
               />
-              <Button onClick={props.onClose} variant="danger" className="m-2">
+              <Button onClick={(event) => removeCartItemHandler(event,index)} variant="danger" className="m-2">
                 Remove
               </Button>
             </div>
