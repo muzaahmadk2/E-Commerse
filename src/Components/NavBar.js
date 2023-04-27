@@ -32,9 +32,10 @@ const NavBar = (props) => {
   const contactHandler = (details) => {
     props.onContact(details);
   };
-  const logoutHandler = () => {
-    // event.preventDefault();
+  const logoutHandler = (event) => {
+    event.preventDefault();
     authCtx.logout();
+    crtCtx.logout();
   };
 
   const isLoggedIn = authCtx.isLoggedIn;
@@ -45,7 +46,7 @@ const NavBar = (props) => {
         {isLoggedIn && (
           <Container className="justify-content-center">
             <Nav>
-              <Nav.Link as={Link} to="/home">
+              <Nav.Link  as={Link} to="/home" >
                 HOME
               </Nav.Link>
               <Nav.Link as={Link} to="/store">

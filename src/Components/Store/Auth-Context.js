@@ -1,9 +1,9 @@
-import React, {useState,useEffect, useCallback} from 'react';
+import React, {useState,useEffect, useCallback, useContext} from 'react';
 
 const AuthContext = React.createContext({
     token: '',
     isLoggedIn: false,
-    login: (token) => {},
+    login: (token,email) => {},
     logout: () => {}
 });
 
@@ -12,18 +12,22 @@ export const AuthProvider = (props) => {
     const [token, setToken] = useState(initialToken);
     const userIsLoggedIn = !!token;
 
-    const loginHandler = (token) => {
+    const loginHandler = (token,email) => {
         setToken(token);
         localStorage.setItem('token',token);
+        localStorage.setItem('email',email.replace(/[@.]/g, ""));
     }
     const logoutHandler = useCallback(() => {
         setToken(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        
     },[])
 
     useEffect(()=>{
         // localStorage.setItem('token',token);
         if(userIsLoggedIn){
+            
             const timeoutId = setTimeout(()=>{
                 logoutHandler()
             },3600000);

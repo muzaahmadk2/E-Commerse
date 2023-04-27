@@ -66,14 +66,16 @@ const ProductDetails = (props) => {
         </Link>
       </Route>
       <Route path={`${match.path}/comments`}>
+      <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Form>
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
-            style={{ height: "100px", marginTop: "20px" }}
+            style={{ height: "100px",width: '800px' }}
           />
           <Button variant="primary" className="mt-3">Submit Comment</Button>
         </Form>
+        </section>
       </Route>
     </section>
   );

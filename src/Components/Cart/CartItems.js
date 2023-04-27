@@ -1,22 +1,26 @@
 import { Button } from "react-bootstrap";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import CartContext from "../Store/Cart-Context";
+import AuthContext from "../Store/Auth-Context";
 
 const CartItems = (props) => {
   const crtCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   const cartItems = crtCtx.items;
   const [data, setData] = useState(cartItems);
+  const isLoggedIn = authCtx.isLoggedIn;
 
   const valueChangeHandler = (event, index) => {
     const updatedItems = [...data];
     updatedItems[index].quantity = +event.target.value;
     setData(updatedItems);
   };
-  const removeCartItemHandler = (event,index) => {
+  const removeCartItemHandler = (event,ele) => {
     event.preventDefault();
-    crtCtx.removeItem(cartItems[index]);
+    crtCtx.removeItem(ele);
   }
-
+  
+  
   return (
     <>
       {cartItems.map((ele, index) => (
@@ -44,7 +48,7 @@ const CartItems = (props) => {
                 onChange={(event) => valueChangeHandler(event, index)}
                 style={{ width: "30px", height: "30px" }}
               />
-              <Button onClick={(event) => removeCartItemHandler(event,index)} variant="danger" className="m-2">
+              <Button onClick={(event) => removeCartItemHandler(event,ele)} variant="danger" className="m-2">
                 Remove
               </Button>
             </div>

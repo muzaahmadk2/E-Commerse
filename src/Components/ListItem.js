@@ -1,5 +1,10 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Items from "./Items";
+import { useContext } from "react";
+import { useCallback } from "react";
+import { useEffect } from "react";
+import AuthContext from "./Store/Auth-Context";
+import CartContext from "./Store/Cart-Context";
 const productsArr = [
   {
     title: "Colors",
@@ -44,6 +49,8 @@ const listItems = productsArr.map((item, index) => (
   />
 ));
 const ListItem = () => {
+  
+
   return (
     <Container
       className="mt-3 py-4"

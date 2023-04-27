@@ -7,6 +7,11 @@ import CartItems from "./CartItems";
 const Cart = (props) => {
   const crtCtx = useContext(CartContext);
 
+  const purchaseHandler = (event) => {
+    event.preventDefault();
+    crtCtx.purchase();
+  }
+
   return (
     // <Modal onClose={props.onClose} style={{float: 'right'}}>
     <Card
@@ -36,7 +41,7 @@ const Cart = (props) => {
           </span>
         </div>
         <div style={{ textAlign: "center" }}>
-          <Button variant="primary" className="mt-3">
+          <Button variant="primary" className="mt-3" onClick={purchaseHandler}>
             Purchase
           </Button>
         </div>

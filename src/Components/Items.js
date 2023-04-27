@@ -10,6 +10,7 @@ const Items = (props) => {
   const addToCartHandler = (event) => {
     event.preventDefault();
     crtCtx.addItem({ ...props, quantity: 1 });
+    crtCtx.postCart({ ...props, quantity: 1 });
   };
 
   return (
@@ -20,7 +21,15 @@ const Items = (props) => {
           className="img-fluid card h-100 shadow"
           style={{ maxWidth: "300px", height: "50px" }}
         >
-          <Link to={`/store/${props.id}`} ><Card.Img variant="top" src={props.img}></Card.Img></Link>
+          <Link to={`/store/${props.id}`}>
+            <Card.Img
+              variant="top"
+              src={props.img}
+              style={{ transition: "ease-in 0.3s", transformOrigin: '30% 50%' }}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+              onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+            ></Card.Img>
+          </Link>
         </Card>
         <span className="fw-bolder ">${props.price}</span>
         <Button

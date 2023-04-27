@@ -1,7 +1,8 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useCallback, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../Store/Auth-Context";
 import classes from "./AuthForm.module.css";
+import CartContext from "../Store/Cart-Context";
 
 const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,7 @@ const AuthForm = () => {
     const enteredEmail = emailRef.current.value;
     const enteredPass = passwordRef.current.value;
 
+    
     let url;
     if (isLogin) {
       url =
@@ -52,7 +54,7 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
+        authCtx.login(data.idToken,enteredEmail);
         emailRef.current.value = '';
         passwordRef.current.value= '';
         history.replace('/store');
@@ -60,11 +62,13 @@ const AuthForm = () => {
       .catch((err) => {
         alert(err.message);
       });
+
   };
+
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1>{isLogin ? "Login" : "Sign Up" }</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
