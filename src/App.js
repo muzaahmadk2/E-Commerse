@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Cart from "./Components/Cart/Cart";
-import Footer from "./Components/Layout/Footer";
+// import Cart from "./Components/Cart/Cart";
+// import Footer from "./Components/Layout/Footer";
 import Header from "./Components/Layout/Header";
 import ListItem from "./Components/ListItem";
-import NavBar from "./Components/NavBar";
+// import NavBar from "./Components/NavBar";
 import About from "./Components/Pages/About";
 import Home from "./Components/Pages/Home";
 import CartProvider from "./Components/Store/CartProvider";
-
+const Cart = lazy(() => import("./Components/Cart/Cart"));
+const Footer = lazy(() => import("./Components/Layout/Footer"));
+const NavBar = lazy(() => import("./Components/NavBar"));
 // const router = createBrowserRouter([
 //   {
 //     path: "/",
@@ -50,8 +52,8 @@ function App() {
   return (
     <CartProvider>
       {/* <RouterProvider router={router} /> */}
-      {showCart && <Cart onClose={hideCartHandler} />}
-      <NavBar onShowCart={showCartHandler} onContact={contactHandler} />
+      <Suspense>{showCart && <Cart onClose={hideCartHandler} />}</Suspense>
+      <Suspense><NavBar onShowCart={showCartHandler} onContact={contactHandler} /></Suspense>
 
       {/* <ListItem /> */}
       <Footer />

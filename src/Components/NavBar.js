@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { Suspense, lazy, useContext, useState } from "react";
 import { Navbar, Nav, Container, Button, Badge } from "react-bootstrap";
 import {
   Link,
@@ -8,16 +8,24 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import Header from "./Layout/Header";
-import ListItem from "./ListItem";
-import About from "./Pages/About";
-import Home from "./Pages/Home";
-import ProductDetails from "./Pages/ProductDetails";
-import Contact from "./Pages/Contact";
+// import Header from "./Layout/Header";
+// import ListItem from "./ListItem";
+// import About from "./Pages/About";
+// import Home from "./Pages/Home";
+// import ProductDetails from "./Pages/ProductDetails";
+// import Contact from "./Pages/Contact";
 import CartContext from "./Store/Cart-Context";
-import AuthPage from "./Pages/AuthPage";
-import ProfilePage from "./Pages/ProfilePage";
+// import AuthPage from "./Pages/AuthPage";
+// import ProfilePage from "./Pages/ProfilePage";
 import AuthContext from "./Store/Auth-Context";
+const Header = lazy(() => import("./Layout/Header"));
+const ListItem = lazy(() => import("./ListItem"));
+const About = lazy(() => import("./Pages/About"));
+const Home = lazy(() => import("./Pages/Home"));
+const ProductDetails = lazy(() => import("./Pages/ProductDetails"));
+const Contact = lazy(() => import("./Pages/Contact"));
+const AuthPage = lazy(() => import("./Pages/AuthPage"));
+const ProfilePage = lazy(() => import("./Pages/ProfilePage"));
 
 const NavBar = (props) => {
   const [isHeaderActive, setIsHeaderActive] = useState(false);
@@ -94,31 +102,31 @@ const NavBar = (props) => {
           </Container>
         )}
       </Navbar>
-      <Header isActive={isHeaderActive} />
+      <Suspense fallback={<p>Loading...</p>}><Header isActive={isHeaderActive} /></Suspense>
 
       <Switch>
         {isLoggedIn && (
           <Switch>
             <Route path="/home">
-              <Home toggleHeader={toggleHeader} />
+              <Suspense><Home toggleHeader={toggleHeader} /></Suspense>
             </Route>
             <Route path="/about">
-              <About />
+              <Suspense fallback={<p>Loading....</p>}><About /></Suspense>
             </Route>
             <Route path="/" exact>
               <Redirect to="/store" />
             </Route>
             <Route path="/store" exact>
-              <ListItem />
+              <Suspense><ListItem /></Suspense>
             </Route>
             <Route path="/contact">
-              <Contact onContact={contactHandler} />
+            <Suspense><Contact onContact={contactHandler} /></Suspense>
             </Route>
             <Route path="/store/:id">
-              <ProductDetails />
+            <Suspense><ProductDetails /></Suspense>
             </Route>
             <Route path="/profile">
-              <ProfilePage />
+            <Suspense><ProfilePage /></Suspense>
             </Route>
           </Switch>
         )}
@@ -128,7 +136,7 @@ const NavBar = (props) => {
               <About />
             </Route>
             <Route path="/login">
-              <AuthPage />
+            <Suspense><AuthPage /></Suspense>
             </Route>
           </Switch>
         )}
