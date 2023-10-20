@@ -17,7 +17,7 @@ const CartProvider = (props) => {
   function postCartItem(item) {
     axios({
       method: "post",
-      url: `https://crudcrud.com/api/6dd2fa166c1c4d32a9b78c345d862910/cart${userEmail} `,
+      url: `https://crudcrud.com/api/df5f015c24c44c36ae78f85e0cfb82d4/cart${userEmail} `,
       data: item,
     })
       .then((res) => console.log(res))
@@ -28,7 +28,7 @@ const CartProvider = (props) => {
     // console.log("getdata");
     try {
       axios.get(
-        `https://crudcrud.com/api/6dd2fa166c1c4d32a9b78c345d862910/cart${userEmail}`
+        `https://crudcrud.com/api/df5f015c24c44c36ae78f85e0cfb82d4/cart${userEmail}`
       )
       .then(res => {
           let total = 0;
@@ -99,7 +99,7 @@ const CartProvider = (props) => {
   const logoutHandler = () => {
     setCartItems([]);
     setTotalAmount(0);
-    userEmail = undefined;
+    userEmail = '';
   };
 
   const cartContext = {

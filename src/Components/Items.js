@@ -19,14 +19,14 @@ const Items = (props) => {
         <h4 className="mt-3 mb-3">{props.title}</h4>
         <Card
           className="img-fluid card h-100 shadow"
-          style={{ maxWidth: "300px", height: "50px" }}
+          style={{ maxWidth: "300px", height: "50px", overflow:"hidden" }}
         >
           <Link to={`/store/${props.id}`}>
             <Card.Img
               variant="top"
               src={props.img}
-              style={{ transition: "ease-in 0.3s", transformOrigin: '30% 50%' }}
-              onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+              style={{  objectFit:"cover", transition:"transform 400ms" }}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
               onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
             ></Card.Img>
           </Link>

@@ -7,6 +7,7 @@ import {
   NavLink,
   Redirect,
   Switch,
+  useHistory,
 } from "react-router-dom";
 // import Header from "./Layout/Header";
 // import ListItem from "./ListItem";
@@ -32,6 +33,7 @@ const NavBar = (props) => {
   const crtCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
   const noOfItems = crtCtx.items.length;
+  const history = useHistory();
 
   const toggleHeader = (sta) => {
     setIsHeaderActive(sta);
@@ -42,6 +44,7 @@ const NavBar = (props) => {
   };
   const logoutHandler = (event) => {
     event.preventDefault();
+    history.replace("/login");
     authCtx.logout();
     crtCtx.logout();
   };
@@ -54,7 +57,7 @@ const NavBar = (props) => {
         {isLoggedIn && (
           <Container className="justify-content-center">
             <Nav>
-              <Nav.Link  as={Link} to="/home" >
+              <Nav.Link as={Link} to="/home">
                 HOME
               </Nav.Link>
               <Nav.Link as={Link} to="/store">
@@ -69,9 +72,9 @@ const NavBar = (props) => {
               <Nav.Link as={Link} to="/profile">
                 PROFILE
               </Nav.Link>
-              <Button onClick={logoutHandler} variant="primary">
+              <Nav.Link  onClick={logoutHandler}>
                 LOGOUT
-              </Button>
+              </Nav.Link>
             </Nav>
           </Container>
         )}
@@ -102,31 +105,45 @@ const NavBar = (props) => {
           </Container>
         )}
       </Navbar>
-      <Suspense fallback={<p>Loading...</p>}><Header isActive={isHeaderActive} /></Suspense>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Header isActive={isHeaderActive} />
+      </Suspense>
 
       <Switch>
         {isLoggedIn && (
           <Switch>
             <Route path="/home">
-              <Suspense><Home toggleHeader={toggleHeader} /></Suspense>
+              <Suspense>
+                <Home toggleHeader={toggleHeader} />
+              </Suspense>
             </Route>
             <Route path="/about">
-              <Suspense fallback={<p>Loading....</p>}><About /></Suspense>
+              <Suspense fallback={<p>Loading....</p>}>
+                <About />
+              </Suspense>
             </Route>
             <Route path="/" exact>
               <Redirect to="/store" />
             </Route>
             <Route path="/store" exact>
-              <Suspense><ListItem /></Suspense>
+              <Suspense>
+                <ListItem />
+              </Suspense>
             </Route>
             <Route path="/contact">
-            <Suspense><Contact onContact={contactHandler} /></Suspense>
+              <Suspense>
+                <Contact onContact={contactHandler} />
+              </Suspense>
             </Route>
             <Route path="/store/:id">
-            <Suspense><ProductDetails /></Suspense>
+              <Suspense>
+                <ProductDetails />
+              </Suspense>
             </Route>
             <Route path="/profile">
-            <Suspense><ProfilePage /></Suspense>
+              <Suspense>
+                <ProfilePage />
+              </Suspense>
             </Route>
           </Switch>
         )}
@@ -136,7 +153,9 @@ const NavBar = (props) => {
               <About />
             </Route>
             <Route path="/login">
-            <Suspense><AuthPage /></Suspense>
+              <Suspense>
+                <AuthPage />
+              </Suspense>
             </Route>
           </Switch>
         )}

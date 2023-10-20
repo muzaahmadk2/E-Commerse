@@ -33,8 +33,8 @@ const Header = (props) => {
                   border: "1px solid #56CCF2",
                   padding: "15px 30px",
                   background: "inherit",
-                  fontSize:'23px',
-                  margin:'10px auto'
+                  fontSize: "23px",
+                  margin: "10px auto",
                 }}
               >
                 Get our latest album
@@ -42,16 +42,18 @@ const Header = (props) => {
               <Button
                 style={{
                   display: "block",
-                  borderRadius:'50%',
-                  fontWeight:'200px',
+                  borderRadius: "50%",
+                  fontWeight: "200px",
                   border: "2px solid #56CCF2",
                   padding: "15px 30px",
                   background: "inherit",
-                  fontSize:'30px',
-                  margin:'10px auto',
-                  color:'#56CCF2'
+                  fontSize: "30px",
+                  margin: "10px auto",
+                  color: "#56CCF2",
                 }}
-              >►</Button>
+              >
+                ►
+              </Button>
             </div>
           )}
         </Card.Body>

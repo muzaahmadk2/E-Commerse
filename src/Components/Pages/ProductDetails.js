@@ -64,17 +64,48 @@ const ProductDetails = (props) => {
             ADD COMMENT
           </Button>
         </Link>
+        <Link to={"/store"}>
+          <button
+            style={{
+              border: "none",
+              background: "none",
+              marginLeft: "15px",
+              color: "blue",
+              transition: "transform 0.3s ease",
+              cursor: "pointer",
+              transformOrigin: "center center",
+            }}
+            onMouseEnter={(e) => (e.target.style.transform = "scale(1.2)")}
+            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+          >
+            Back to Store
+          </button>
+        </Link>
       </Route>
       <Route path={`${match.path}/comments`}>
-      <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Form>
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            style={{ height: "100px",width: '800px' }}
-          />
-          <Button variant="primary" className="mt-3">Submit Comment</Button>
-        </Form>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Form>
+            <Form.Control
+              as="textarea"
+              placeholder="Leave a comment here"
+              style={{ height: "100px", width: "800px" }}
+            />
+            <Button variant="primary" className="mt-3">
+              Submit Comment
+            </Button>
+            <Link to={`${match.url}`}>
+              {" "}
+              <Button variant="danger" className="mt-3">
+                X
+              </Button>
+            </Link>
+          </Form>
         </section>
       </Route>
     </section>
